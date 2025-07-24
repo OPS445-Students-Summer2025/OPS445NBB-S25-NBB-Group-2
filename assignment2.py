@@ -8,6 +8,15 @@ def human_readable_size(size_bytes):
         size_bytes /= 1024.0
     return f"{size_bytes:.2f} PB"
 
+def generate_report(path, file_count, dir_count, total_size):
+
+    report_lines = []
+
+    report_lines.append(f"📁 Directory Report for: {path}")
+    report_lines.append(f"📦 Total size: {human_readable_size(total_size)}")
+    report_lines.append(f"📄 Files: {file_count}, 📂 Folders: {dir_count}\n")
+
+
 # ---------------- Main Block ---------------- #
 if __name__ == '__main__':
     # Sample data for testing
