@@ -67,6 +67,7 @@ if __name__ == '__main__':
         ".jpg": 3,
         ".iso": 1
     }
+
     generate_report(
     sample_path,
     sample_file_count,
@@ -74,9 +75,9 @@ if __name__ == '__main__':
     sample_total_size,
     sample_top_files,
     sample_type_breakdown,
-    sample_sort_method,
-    sample_sort_extension,
-    output_path="my_report.txt"
+    sort_method="type",
+    sorted_extensions=[".py", ".txt"],
+    output_path="./my_report.txt"
 )
 
     
