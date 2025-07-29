@@ -12,6 +12,8 @@ def count_files_and_folders(directory):
     """
         num_files = 0
     num_dirs = 0
+    if not os.path.isdir(directory):
+        raise ValueError(f"{directory} is not a valid directory.")
 
     for root, dirs, files in os.walk(directory):
         num_dirs += len(dirs)
