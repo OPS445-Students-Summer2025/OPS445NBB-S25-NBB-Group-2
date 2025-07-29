@@ -10,4 +10,12 @@ def count_files_and_folders(directory):
     Returns:
         tuple: (number_of_files, number_of_folders)
     """
-    pass  # Logic will be added later
+        num_files = 0
+    num_dirs = 0
+
+    for root, dirs, files in os.walk(directory):
+        num_dirs += len(dirs)
+        num_files += len(files)
+
+    return num_files, num_dirs
+
