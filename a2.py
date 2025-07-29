@@ -19,3 +19,14 @@ def count_files_and_folders(directory):
 
     return num_files, num_dirs
 
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Count files and folders in a directory")
+    parser.add_argument('--dir', required=True, help='Directory path to scan')
+
+    args = parser.parse_args()
+
+    files, folders = count_files_and_folders(args.dir)
+    print(f"Total files: {files}")
+    print(f"Total folders: {folders}")
