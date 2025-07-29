@@ -67,5 +67,14 @@ if __name__ == '__main__':
         ".jpg": 3,
         ".iso": 1
     }
+    generate_report(
+    sample_path,
+    sample_file_count,
+    sample_dir_count,
+    sample_total_size,
+    sample_top_files,
+    sample_type_breakdown,
+    output_path="my_report.txt"
+)
 
     
