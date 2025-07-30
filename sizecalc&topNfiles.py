@@ -3,7 +3,7 @@
 import sys  # Used for parsing command line arguments and exiting the script
 import os   # Used for interacting with the operating system, specifically for file and directory operations
 
-def usage():
+#def usage():
     """
     Prints a helpful usage message to the user and then exits the script.
     """
@@ -28,7 +28,7 @@ def human_readable_size(size_bytes: int) -> str:
     
     return f"{size_bytes / (threshold**(len(units)-1)):.2f} {units[-1]}"
 
-def scan_directory(directory_path: str) -> list:
+#def scan_directory(directory_path: str) -> list:
     """
     Scans the specified directory and collects information about files.
     Returns a list of tuples: (file_size_in_bytes, file_name).
@@ -71,7 +71,7 @@ def sort_and_get_top_n(files_data: list, n: int) -> list:
     files_data.sort(key=lambda x: x, reverse=True)
     return files_data[:n]
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
     if len(sys.argv) != 3:
         usage()
 
