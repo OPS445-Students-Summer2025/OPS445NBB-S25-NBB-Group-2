@@ -1,83 +1,71 @@
-#!/usr/bin/env python3
-
+# === Andrew's Section: Output Formatting and Saving ===
 def human_readable_size(size_bytes):
-    # Convert bytes to a human-readable format
     for unit in ['B','KB','MB','GB','TB']:
         if size_bytes < 1024.0:
             return f"{size_bytes:.2f} {unit}"
         size_bytes /= 1024.0
     return f"{size_bytes:.2f} PB"
 
-def generate_report(path, file_count, dir_count, total_size, top_files, type_breakdown, sort_method, sorted_extensions, output_path):
-
+def generate_report(path, file_count, dir_count, total_size, top_files=None, type_breakdown=None, sort_method=None, output_path=None):
     report_lines = []
 
     report_lines.append(f"📁 Directory Report for: {path}")
     report_lines.append(f"📦 Total size: {human_readable_size(total_size)}")
-    report_lines.append(f"📄 Files: {file_count}, 📂 Folders: {dir_count}\n")
-    
+    report_lines.append(f"📄 Files: {file_count}, 📂 Folders: {dir_count}")
+
     if top_files:
-        report_lines.append(f"🔝 Top {len(top_files)} Largest Files (Sorted by size):")
-        for i, (fp, size) in enumerate(top_files, 1):
+        report_lines.append(f"🔝 Top {len(top_files)} Largest Files:")
+        sorted_files = top_files
+        if sort_method == 'name':
+            sorted_files = sorted(top_files, key=lambda x: x[0].lower())
+        elif sort_method == 'type':
+            sorted_files = sorted(top_files, key=lambda x: os.path.splitext(x[0])[1].lower())
+
+        for i, (fp, size) in enumerate(sorted_files, 1):
             report_lines.append(f"{i}. {fp} - {human_readable_size(size)}")
         report_lines.append("")
 
     if type_breakdown:
         report_lines.append("📊 File Type Breakdown:")
-        for ext, count in sorted(type_breakdown.items(), key=lambda x: x[1], reverse=True):
+        items = type_breakdown.items()
+        if sort_method == 'name':
+            items = sorted(items, key=lambda x: x[0])
+        elif sort_method == 'type':
+            items = sorted(items, key=lambda x: x[1], reverse=True)
+        for ext, count in items:
             report_lines.append(f"{ext or '[no extension]'}: {count}")
         report_lines.append("")
-    
-    if sort_method and sorted_extensions:
-        report_lines.append(f"🗂 Sorted File Types by `{sort_method}`:")
-        for ext in sorted_extensions:
-            report_lines.append(f"• {ext}")
-        report_lines.append("")
-    
+
     final_report = '\n'.join(report_lines)
-    
+
     print("\n" + final_report)
-    
+
     if output_path:
         try:
             with open(output_path, 'w') as f:
                 f.write(final_report)
-            print(f"✅ Report saved to: {output_path}")
+            print(f"\n✅ Report saved to: {output_path}")
         except Exception as e:
-            print(f"❌ Error writing to file: {e}")
-    else:
-        pass
+            print(f"\n❌ Failed to save report: {e}")
 
+# === Main Execution Logic ===
+if not os.path.isdir(args.dir):
+    print("❌ Invalid directory. Please provide a valid path.")
+    exit(1)
 
+file_count, dir_count = count_files_and_dirs(args.dir)
+total_size = get_total_size(args.dir)
 
-# ---------------- Main Block ---------------- #
-if __name__ == '__main__':
-    # Sample data for testing
-    sample_path = "/home/student/testdir"
-    sample_file_count = 8
-    sample_dir_count = 2
-    sample_total_size = 3145728  # 3 MB
-    sample_top_files = [
-        ("/home/student/testdir/file1.txt", 2048000),
-        ("/home/student/testdir/file2.jpg", 512000),
-        ("/home/student/testdir/big.iso", 1024000)
-    ]
-    sample_type_breakdown = {
-        ".txt": 2,
-        ".jpg": 3,
-        ".iso": 1
-    }
+top_files = get_top_n_files(args.dir, args.top) if args.top else None
+type_breakdown = get_file_type_breakdown(args.dir) if args.sort == 'type' or args.sort == 'name' else None
 
-    generate_report(
-    sample_path,
-    sample_file_count,
-    sample_dir_count,
-    sample_total_size,
-    sample_top_files,
-    sample_type_breakdown,
-    sort_method="type",
-    sorted_extensions=[".py", ".txt"],
-    output_path="./my_report.txt"
+generate_report(
+    path=args.dir,
+    file_count=file_count,
+    dir_count=dir_count,
+    total_size=total_size,
+    top_files=top_files,
+    type_breakdown=type_breakdown,
+    sort_method=args.sort,
+    output_path=args.output
 )
-
-    
