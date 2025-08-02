@@ -6,6 +6,6 @@ The following function provides a simple Python script to categorize and count f
 
 Why Not Use `find`, `fd`, or `du` as discussed from the intial assignment plan?
 
-1. So that they maybe used in other operating systems such as in mac or windows. The above listed commands are solely limited Unix environment.
+1. So that they maybe used in other operating systems such as in mac or windows. The above listed commands are solely limited to Unix environment.
 
-2. Simplifies the script without having to download any dependancies, users do not need to install tools like 'fd-find' an worry about aliasing 
+2. Simplifies the script without having to download any dependancies, users do not need to install tools like 'fd-find' and worry about aliasing 
