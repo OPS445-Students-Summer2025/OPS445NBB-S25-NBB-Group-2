@@ -1,34 +1,35 @@
-#!/usr/bin/env python3
-# Author: Ricky Tang
-# ID: rtang41
-# Student No.: 104448246
-
+import os
 import argparse
 
-def parse_args():
-    """
-    Function for parsing input arguments for analyzer tool with argparse
-    """
-    parser = argparse.ArgumentParser(description = "Directory analyzer tool")
-    #dir path argument
-    parser.add_argument(
-        "directory", type = str,
-        help = "path to directory to analyze"
-    )
-    #largest files argument
-    parser.add_argument(
-        "--top", "-t", type = int, default = 0,
-        help = "Show top N largest files"
-    )
-    #filetype sort argument
-    parser.add_argument(
-        "--sort", "-s", type = str, default = "name",
-        help = "sort by <size>|<name>|<filetype>"
-    )
-    #write output file argument
-    parser.add_argument(
-        "--output", "-o", type = str,
-        help = "path to output file"
-    )
+parser = argparse.ArgumentParser(
+    description = "Directory size report tool"
+)
 
-    return parser.parse_args()
+#dir path argument
+parser.add_argument(
+    "--dir",
+    required = True,
+    help = "Directory path to scan"
+)
+
+#largest files argument
+parser.add_argument(
+    "--top", "-t",
+    type = int,
+    help = "Show top N largest files"
+)
+
+#filetype sort argument
+parser.add_argument(
+    "--sort", "-s",
+    choices = ["size","name","type"],
+    help = "sort by <size>|<name>|<type>"
+)
+
+#write output file argument
+parser.add_argument(
+    "--output", "-o",
+    help = "path to output file (optional)"
+)
+
+args = parser.parse_args()
