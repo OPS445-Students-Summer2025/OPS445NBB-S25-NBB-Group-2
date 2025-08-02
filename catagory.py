@@ -60,9 +60,3 @@ def categorize_files_find(path: str, extension_filter: str = None) -> dict:
     except subprocess.CalledProcessError as e: # If the find command fails (e.g., invalid path), print an error message
         print("Error running find:", e)
         return {} # An empty dictionary
-
-# Testing, you may remove
-if __name__ == '__main__':
-    path_to_search = "~/ops445/assignment2/"
-    breakdown = categorize_files_find(path_to_search)
-    print(breakdown)
