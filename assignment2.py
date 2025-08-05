@@ -56,7 +56,15 @@ def get_top_n_files(path, n):
                 continue
     all_files.sort(key=lambda x: x[1], reverse=True)
     return all_files[:n]
-  
+
+# File Type Categorization by Chanho Lee
+def get_file_type_breakdown(path):
+    ext_count = {} # count by extension + display as dict
+    for root, dirs, files in os.walk(path): # Walk all directories starting from whichever path
+        for f in files:
+            ext = os.path.splitext(f)[1].lower() # get the extension and convert into lowercase
+            ext_count[ext] = ext_count.get(ext, 0) + 1 # increase count for the same extension type in the dict
+        return ext_count
   
 # === Andrew's Section: Output Formatting and Saving ===
 def human_readable_size(size_bytes):
