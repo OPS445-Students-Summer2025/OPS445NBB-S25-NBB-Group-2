@@ -27,7 +27,7 @@ Structure:
     • File type categorization (Chan Ho)
     • Report formatting and output handling (Andrew)
 
-Author Group: OPS445 Group 3 — Summer 2025
+Author Group: OPS445 Group 2 — Summer 2025
 """
 
 import os
