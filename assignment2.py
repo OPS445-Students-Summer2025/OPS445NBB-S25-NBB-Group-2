@@ -1,3 +1,35 @@
+#!/usr/bin/python3
+"""
+OPS445 Assignment 2
+Directory Size Report Tool
+--------------------------
+
+This script scans a specified directory and generates a structured report that includes:
+    • Total size of all files
+    • Number of files and folders
+    • Top N largest files (if --top is specified)
+    • File type breakdown by extension (if --sort is used with 'type')
+    • Optional: Save the report to a text file (--output)
+
+Usage:
+    python3 assignment2.py --dir <path> [--top N] [--sort name|type] [--output file.txt]
+
+Arguments:
+    --dir       (required)  Path of the directory to scan
+    --top       (optional)  Show top N largest files
+    --sort      (optional)  Sort output: by 'name', or 'type'
+    --output    (optional)  Save the report to a text file
+
+Structure:
+    • Argument parsing (Ricky)
+    • File and folder counting (Mark Jordan)
+    • Size calculation and top N file retrieval (Kris)
+    • File type categorization (Chan Ho)
+    • Report formatting and output handling (Andrew)
+
+Author Group: OPS445 Group 3 — Summer 2025
+"""
+
 import os
 import argparse
 
